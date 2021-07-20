@@ -1,3 +1,5 @@
+Configure miss: 64-bit time_t
+Configure miss: 64-bit time_t with _TIME_BITS=64
 Configure miss: compiler option needed when checking for declarations
 Configure miss: compiler option needed when checking for declarations
 Configure miss: if gcc/ld supports -Wl,--output-def

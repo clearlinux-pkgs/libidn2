@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x860B7FBB32F8119D (simon@yubico.com)
 #
 Name     : libidn2
-Version  : 2.3.1
-Release  : 9
-URL      : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.1.tar.gz
-Source0  : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.1.tar.gz
-Source1  : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.1.tar.gz.sig
+Version  : 2.3.2
+Release  : 10
+URL      : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.2.tar.gz
+Source0  : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.2.tar.gz
+Source1  : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.2.tar.gz.sig
 Summary  : Library implementing IDNA2008 and TR46
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 LGPL-3.0 Unicode-TOU
@@ -35,10 +35,9 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : valgrind
 
 %description
-[![build status](https://gitlab.com/libidn/libidn2/badges/master/build.svg)](https://gitlab.com/libidn/libidn2/pipelines)
-[![coverage status](https://gitlab.com/libidn/libidn2/badges/master/coverage.svg)](https://libidn.gitlab.io/libidn2/coverage)
-[![fuzz coverage status](https://libidn.gitlab.io/libidn2/fuzz-coverage/badge.svg)](https://libidn.gitlab.io/libidn2/fuzz-coverage)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/12080/badge.svg)](https://scan.coverity.com/projects/libidn2)
+Libidn2 is a free software implementation of IDNA2008, Punycode and
+Unicode TR46.  Its purpose is to encode and decode internationalized
+domain names.
 
 %package bin
 Summary: bin components for the libidn2 package.
@@ -133,10 +132,10 @@ man components for the libidn2 package.
 
 
 %prep
-%setup -q -n libidn2-2.3.1
-cd %{_builddir}/libidn2-2.3.1
+%setup -q -n libidn2-2.3.2
+cd %{_builddir}/libidn2-2.3.2
 pushd ..
-cp -a libidn2-2.3.1 build32
+cp -a libidn2-2.3.2 build32
 popd
 
 %build
@@ -144,15 +143,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620854414
+export SOURCE_DATE_EPOCH=1626801963
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -175,13 +174,13 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1620854414
+export SOURCE_DATE_EPOCH=1626801963
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libidn2
-cp %{_builddir}/libidn2-2.3.1/COPYING %{buildroot}/usr/share/package-licenses/libidn2/f134eeebdc065e961a7935729cd6fd8fee3a50f2
-cp %{_builddir}/libidn2-2.3.1/COPYING.LESSERv3 %{buildroot}/usr/share/package-licenses/libidn2/f45ee1c765646813b442ca58de72e20a64a7ddba
-cp %{_builddir}/libidn2-2.3.1/COPYING.unicode %{buildroot}/usr/share/package-licenses/libidn2/33ad3570b2dc646e18e97171233bfceda6f7f088
-cp %{_builddir}/libidn2-2.3.1/COPYINGv2 %{buildroot}/usr/share/package-licenses/libidn2/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/libidn2-2.3.2/COPYING %{buildroot}/usr/share/package-licenses/libidn2/f134eeebdc065e961a7935729cd6fd8fee3a50f2
+cp %{_builddir}/libidn2-2.3.2/COPYING.LESSERv3 %{buildroot}/usr/share/package-licenses/libidn2/f45ee1c765646813b442ca58de72e20a64a7ddba
+cp %{_builddir}/libidn2-2.3.2/COPYING.unicode %{buildroot}/usr/share/package-licenses/libidn2/33ad3570b2dc646e18e97171233bfceda6f7f088
+cp %{_builddir}/libidn2-2.3.2/COPYINGv2 %{buildroot}/usr/share/package-licenses/libidn2/4cc77b90af91e615a64ae04893fdffa7939db84c
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -234,12 +233,16 @@ popd
 
 %files doc
 %defattr(0644,root,root,0755)
+/usr/share/gtk-doc/html/libidn2/api-index-0.1.html
+/usr/share/gtk-doc/html/libidn2/api-index-2.0.0.html
+/usr/share/gtk-doc/html/libidn2/api-index-2.1.1.html
+/usr/share/gtk-doc/html/libidn2/api-index-deprecated.html
 /usr/share/gtk-doc/html/libidn2/api-index-full.html
 /usr/share/gtk-doc/html/libidn2/home.png
 /usr/share/gtk-doc/html/libidn2/index.html
 /usr/share/gtk-doc/html/libidn2/left-insensitive.png
 /usr/share/gtk-doc/html/libidn2/left.png
-/usr/share/gtk-doc/html/libidn2/libidn2-idn2.html
+/usr/share/gtk-doc/html/libidn2/libidn2-idn2.h.html
 /usr/share/gtk-doc/html/libidn2/libidn2.devhelp2
 /usr/share/gtk-doc/html/libidn2/libidn2.html
 /usr/share/gtk-doc/html/libidn2/right-insensitive.png
