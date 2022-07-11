@@ -1,5 +1,23 @@
 Libidn2 NEWS -- History of user-visible changes.                -*- outline -*-
 
+* Noteworthy changes in release 2.3.3 (2022-07-11) [stable]
+
+** Upgrade IDNA Tables from Unicode 11 to 12.
+
+** Upgrade TR46 Tables from Unicode 13 to 14.
+
+** Updated gnulib files and various build fixes.
+Gnulib's Unicode code claims conformance to Unicode 14.0.0 rather than
+Unicode 9.0.0.  A bug in Libidn2's build system was fixed that caused
+the system libunistring to be used even though the system version was
+too old.
+
+** Self-check improvements.
+Self-checks for the idn2 command line tool were added.  Closes: #96.
+The C self-checks in tests/ should now be usable outside of the
+libidn2 build environment, for system integration checks of a
+system-installed libidn2.
+
 * Noteworthy changes in release 2.3.2 (2021-07-19) [stable]
 
 ** Upgrade TR46 tables from Unicode 11 to Unicode 13.
@@ -388,8 +406,8 @@ interface and ignore the code!  Several changes are planned in the
 internal implementation.
 
 ----------------------------------------------------------------------
-Copyright (C) 2011-2021 Simon Josefsson
-Copyright (C) 2018-2021 Tim Ruehsen
+Copyright (C) 2011-2022 Simon Josefsson
+Copyright (C) 2018-2022 Tim Ruehsen
 
 This file is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
