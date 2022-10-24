@@ -1,4 +1,6 @@
 Configure miss: 32-bit host C ABI
+Configure miss: bool, true, false
+Configure miss: bool, true, false
 Configure miss: compiler option needed when checking for declarations
 Configure miss: compiler option needed when checking for declarations
 Configure miss: crtdefs.h
@@ -8,13 +10,19 @@ Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: if gcc/ld supports -Wl,--output-def
 Configure miss: if gcc/ld supports -Wl,--output-def
 Configure miss: libunistring
+Configure miss: stdckdint.h
+Configure miss: stdckdint.h
 Configure miss: time_t past the year 2038
 Configure miss: whether -Wno-missing-field-initializers is needed
 Configure miss: whether -Wno-missing-field-initializers is needed
 Configure miss: whether ctype.h defines __header_inline
 Configure miss: whether ctype.h defines __header_inline
+Configure miss: whether included libunistring is requested
+Configure miss: whether included libunistring is requested
 Configure miss: whether the compiler is clang
 Configure miss: whether the compiler is clang
 Configure miss: whether the compiler produces multi-arch binaries
 Configure miss: whether the compiler produces multi-arch binaries
+Configure miss: whether to use the included libunistring
+Configure miss: whether valgrind works on executables produced by the compiler
 Configure miss: whether valgrind works on executables produced by the compiler
