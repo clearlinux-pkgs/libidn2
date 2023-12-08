@@ -6,7 +6,7 @@
 #
 Name     : libidn2
 Version  : 2.3.4
-Release  : 15
+Release  : 16
 URL      : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.4.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.4.tar.gz
 Source1  : https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.4.tar.gz.sig
