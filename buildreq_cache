@@ -1,6 +1,4 @@
-2.3.4
+2.3.7
 libunistring-dev
 pkg-config
-pkgconfig(32glib-2.0)
-pkgconfig(glib-2.0)
 valgrind

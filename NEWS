@@ -1,5 +1,90 @@
 Libidn2 NEWS -- History of user-visible changes.                -*- outline -*-
 
+* Noteworthy changes in release 2.3.7 (2024-01-27) [stable]
+
+** Really include tests/standalone.sh in tarball.
+
+* Noteworthy changes in release 2.3.6 (2024-01-27) [stable]
+
+** Bump libtool version numbers to reflect API/ABI addition.
+
+** Include tests/standalone.sh in tarball.
+
+* Noteworthy changes in release 2.3.5 (2024-01-27) [stable]
+
+** Declaration of future API/ABI backwards compatibility stability.
+GNU libc dlopen libidn2 and use the name libidn2.so.0 for this.  We
+believe that it will be too challenging to ever do hard ABI break that
+for normal libraries is justified to remove deprecated APIs.  Thus we
+decided that we will support the current ABI for a long time.  Of
+course, if really convincing arguments for doing a ABI break appears
+in the future we may re-consider, but take this as a declaration of
+intent of will and that future ABI breaks should be discussed and
+co-ordinated with the glibc team first.
+
+** Add public APIs for raw Punycode encoding/decoding.
+Normal applications rarely need this, but it cleans up the code and
+allow for external testing of the APIs, and resolve
+<https://gitlab.com/libidn/libidn2/-/issues/80> due to earlier use of
+weak symbols for internal symbols _idn2_punycode_encode and
+_idn2_punycode_decode.  We will support these internal symbols for
+backwards compatibility.  This allows a clean migration path for code
+that is still using the internal names.
+
+** Bump required gettext version to 0.19.8 for musl-libc.
+Reported by Helmut Grohne in
+<https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=999510>.
+
+** Un-deprecate idn2_to_ascii_4i and make it NUL terminate output.
+The API idn2_to_ascii_4i was deprecated in version 2.1.1 released in
+2019-02-08.  In that release, the API was also modified to not
+NUL-terminate the output.  That is contrary to the old libidn2
+behaviour, the behaviour of libidn's API idna_to_ascii_4i, and the API
+documentation for the function.  Since we are not likely to ever break
+backwards API/ABI compatibility in libidn2, and the deprecated gaurds
+leads to some trouble (see report in
+<https://gitlab.com/libidn/libidn2/-/merge_requests/93>) we decided to
+un-deprecate this function, as supporting it is not costly and the
+majority of code that cares about conformance has likely been
+modified.  This will fix the error code and NUL termination report by
+Yegor Bychin in <https://gitlab.com/libidn/libidn2/-/issues/100>.  We
+still encourage you to use the replacement API/ABI idn2_to_ascii_4i2
+instead, when appropriate.
+
+** Compiler warning improvements.
+As before, compiler warnings are enabled by default.  You may disable
+them using ./configure --disable-gcc-warnings or turn them into fatal
+errors using ./configure --enable-gcc-warnings=error to add -Werror
+and sensible -Wno-error='s.  Based on gnulib's manywarnings, see
+<https://www.gnu.org/software/gnulib//manual/html_node/manywarnings.html>.
+
+** tests: Added script tests/standalone.sh suitable for integrators.
+The main purpose is to test a system-installed libidn2 library and
+idn2 tool, suitable for distributor checking (a'la Debian's
+autopkgtest/debci).  It may also be used to test a newly built libidn2
+outside the usual 'make check' infrastructure.  To check that your
+system libidn2 library and idn2 tool is working, invoke the script
+with `srcdir` as an environment variable indicating where it can be
+find the source code for libidn2's tests/ directory (it will use the
+directory name where the script is by default):
+
+tests/standalone.sh
+
+If your system libidn2 is too old to pass certain tests, disable them
+using STANDALONE_DISABLE like this:
+
+STANDALONE_DISABLE='*punycode*' tests/standalone.sh
+
+See the script for more parameters.  If the libidn2 under testing is
+too old and has known bugs, that should cause tests to fail, which is
+intentional.
+
+** Various minor build fixes and translation updates.
+
+** API and ABI is backwards compatible with the previous version.
+idn2_punycode_decode: ADD.
+idn2_punycode_encode: ADD.
+
 * Noteworthy changes in release 2.3.4 (2022-10-23) [stable]
 
 ** Support for Unicode 15.0.0.  Closes: #112.
@@ -426,8 +511,8 @@ interface and ignore the code!  Several changes are planned in the
 internal implementation.
 
 ----------------------------------------------------------------------
-Copyright (C) 2011-2022 Simon Josefsson
-Copyright (C) 2018-2022 Tim Ruehsen
+Copyright (C) 2011-2024 Simon Josefsson
+Copyright (C) 2018-2024 Tim Ruehsen
 
 This file is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
